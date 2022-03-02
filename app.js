@@ -7,30 +7,21 @@ app.use(bodyParser.json());
 app.get('/', (req,res)=>{
     res.status(200).send("Hello Programmers");
 })
-app.post('/bfhl', (req,res)=>{
+app.post('/bfhl', (req, res) => {
+    const data = [...req.body.data]
 
-    const obj = {
-        is_success : true,
-        user_id: "shivam_thakur_15092000",
-        email: "shivam0240.cse19@chitkara.edu.in",
-        roll_number: 1910990240,
-        numbers: [],
-        alphabets: []
-    }
-    const {data} = req.body;
-    const responseJson = JSON.parse(data);
-    var list = (responseJson.data).length;
-    for (var i = 0; i < list; i++) 
-    {
-     var counter = responseJson.data[i];
-     if(counter >=0 && counter <=9) {
-         numbers.push(counter);
-     } else if((/[a-zA-Z]/).test(counter)) {
-         alphabets.push(counter);
-     }
-     }
-     res.json(obj);
-});
+    let numbers = data.filter((value) => !isNaN(value))
+
+    let alphabets = data.filter((value) => (/[a-zA-Z]/).test(value));
+    res.status(200).send({
+        'is_success': 'true',
+        'user_id': 'yourname_yourrollno',
+        'email': 'yourrmail',
+        'roll_number': 'yourrollno',
+        'numbers': numbers,
+        'alphabet': alphabets
+    })
+})
 
 
 app.listen(process.env.PORT || 3000, (req,res)=>{
