@@ -5,6 +5,7 @@ app.get('/', (req,res)=>{
     res.status(200).send("Hello Programmers");
 })
 app.post('/bfhl', (req, res) => {
+    console.log(req.body);
     const data = [...req.body.data]
 
     let numbers = data.filter((value) => !isNaN(value))
